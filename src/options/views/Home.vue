@@ -664,7 +664,8 @@ export default Vue.extend({
 
             if (levelRequirement.uploaded || (downloaded && levelRequirement.ratio)) {
               let levelRequirementUploaded = levelRequirement.uploaded ? this.fileSizetoLength(levelRequirement.uploaded as string) : 0;
-              let requiredUploadedbyRatio = levelRequirement.ratio ? downloaded * levelRequirement.ratio : 0;
+              let requiredDownloaded = levelRequirement.downloaded ? this.fileSizetoLength(levelRequirement.downloaded as string) : 0;
+              let requiredUploadedbyRatio = levelRequirement.ratio ? Math.max(downloaded, requiredDownloaded) * levelRequirement.ratio : 0;
               let requiredUploaded = Math.max(levelRequirementUploaded, requiredUploadedbyRatio);
               if (uploaded < requiredUploaded) {
                 user.nextLevel.uploaded = requiredUploaded - uploaded;
